@@ -53,5 +53,11 @@ pub fn sys_get_time(ts: *mut TimeVal, _tz: usize) -> isize {
 /// YOUR JOB: Finish sys_task_info to pass testcases
 pub fn sys_task_info(_ti: *mut TaskInfo) -> isize {
     trace!("kernel: sys_task_info");
-    -1
+    let ti_ptr = ti as *mut TaskInfo;
+    let task_info = get_current_task_status();
+
+    unsafe {
+        *ti_ptr = task_info;
+    }
+    0
 }
